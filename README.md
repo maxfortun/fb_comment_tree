@@ -18,9 +18,8 @@ splitHAR.sh www.facebook.com.har
 
 This will take a while, so go have a coffee or do laundry. I am doing both as I am writing this.
 
-### Prase JSON structures deeply
-Requests and response objects have nested json stored as strings, we need to be able to refer to them. This process converts strings to nested json objects.
+### Extract responses
+```
+./entryToRes.sh hars/www.facebook.com.har/*.entry
+```
 
-```
-deepJson.js hars/www.facebook.com.har/*.entry
-```

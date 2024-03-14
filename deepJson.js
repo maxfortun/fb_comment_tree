@@ -9,7 +9,7 @@ async function main() {
 	files.shift();
 
 	for(const file of files) {
-		process.stdout.write("\033[0K\r"+file);
+		process.stderr.write("\033[0K\r"+file);
 		const string = (await fs.readFile(file)).toString();
 		const json = deepParseJson(string);
 		await fs.writeFile(file+'.deep', JSON.stringify(json));

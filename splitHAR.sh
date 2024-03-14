@@ -15,8 +15,8 @@ for har in "$@"; do
 	i=0
 	while read -r line; do
 		echo "$line" > $har_dir/$i
-		echo -en "\033[0K\r$har_dir/$i.entry"
+		echo -en "\033[0K\r$har_dir/$i.entry" >&2
 		i=$((i+1))
 	done < <(jq -c '.log.entries[]' $har)
-	echo 
+	echo  >&2
 done
