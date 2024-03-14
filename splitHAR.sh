@@ -13,8 +13,8 @@ for har in "$@"; do
 	[ ! -d $har_dir ] || rm -rf $har_dir
 	mkdir -p $har_dir
 	i=0
-	while read line; do
-		echo $line > $har_dir/$i
+	while read -r line; do
+		echo "$line" > $har_dir/$i
 		echo -en "\033[0K\r$har_dir/$i"
 		i=$((i+1))
 	done < <(jq -c '.log.entries[]' $har)
