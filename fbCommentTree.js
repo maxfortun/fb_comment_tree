@@ -15,6 +15,7 @@ global.handle_Comment = (state) => {
 	}
 
 	const comment = {
+		created_time: d.created_time,
 		parent: feedback.id,
 		id: d.feedback.id,
 		author: {
@@ -98,10 +99,13 @@ function printThread(thread, level) {
 		const linePad = ''.padStart(level, '  ');
 		const nlPad = ''.padStart(thread.author.name.length + level + 3);
 
-		let text = thread.text.replace(/\n/g,"\n"+nlPad);
-		
-		let line = `${linePad}${thread.author.name}: ${text}`;
-		console.log(line.padStart(line.length + level, '  '));
+		const created_time = new Date(thread.created_time*1000).toISOString();
+
+		const text = thread.text.replace(/\n/g,"\n"+nlPad);
+
+		const line = `${linePad}${thread.author.name}: ${text}`;
+
+		console.log(created_time+line.padStart(line.length + level, '  '));
 	}
 
 	thread.comments.forEach(comment => printThread(comment, level + 1));
