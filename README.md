@@ -1,5 +1,5 @@
 # fb_thread_stats
-Facebook Thread Stats
+Facebook Comment Thread Stats
 
 ### Download the FB thread
 * Open Chrome
@@ -20,6 +20,10 @@ This will take a while, so go have a coffee or do laundry. I am doing both as I 
 
 ### Extract responses
 ```
-./entryToRes.sh hars/www.facebook.com.har/*.entry
+entryToRes.sh hars/www.facebook.com.har/*.entry
 ```
 
+### Produce comment thread
+```
+fbCommentTree.js hars/www.facebook.com.har/*.res
+```
