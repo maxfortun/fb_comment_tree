@@ -23,9 +23,17 @@ global.handle_Comment = (state) => {
 			name: d.author.name
 		},
 		text: d.body.text,
+		feedback: {
+			top_reactions: {
+			}
+		},
 		comments: []
 	}; 
 	
+	d.feedback.top_reactions.edges.forEach(edge => {
+		comment.feedback.top_reactions[edge.node.id] = edge.reaction_count;
+	});
+
 	if(tree.comments[comment.id]) {
 		throw new Error(comment.id+' already exists.');
 	}
@@ -96,16 +104,18 @@ function printThread(thread, level) {
 	}
 
 	if(thread.text) {
-		const linePad = ''.padStart(level, '  ');
-		const nlPad = ''.padStart(thread.author.name.length + level + 3);
-
 		const created_time = new Date(thread.created_time*1000).toISOString();
 
-		const text = thread.text.replace(/\n/g,"\n"+nlPad);
+		const linePad = ''.padStart(level, '  ');
+		const nlPad = ''.padStart(created_time.length + level + 1, '  ');
 
-		const line = `${linePad}${thread.author.name}: ${text}`;
+		const text = nlPad+thread.text.replace(/\n/g,"\n"+nlPad);
 
-		console.log(created_time+line.padStart(line.length + level, '  '));
+		const top_reactions = Object.values(thread.feedback.top_reactions).reduce((result, item) => result+=item, 0);
+
+		const line = `${linePad}${thread.author.name}: ${top_reactions} reactions\n${text}`;
+
+		console.log(created_time+line);
 	}
 
 	thread.comments.forEach(comment => printThread(comment, level + 1));
