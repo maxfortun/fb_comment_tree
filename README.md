@@ -1,5 +1,5 @@
-# fb_thread_stats
-Facebook Comment Thread Stats
+# fb_comment_tree
+Export Facebook comment tree as text
 
 ### Download the FB thread
 * Open Chrome
